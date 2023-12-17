@@ -1,0 +1,18 @@
+Package: scRNACorr
+Type: Package
+Title: A collection of functions to perform and visualize correlation analyses of transcript expression on single cell level
+Version: 1.0
+Authors@R: person("Moritz", "Lindner", email = "moritz.lindne@ndcn.ox.ac.uk", role = c("aut", "cre"))
+Maintainer: Moritz Lindner <moritz.lindne@ndcn.ox.ac.uk>
+Description: This package contains functions to analyse correlation of transcript expression on a single cell level from Seaurat objects.
+Depends: R (>= 3.5.2),
+	ggplot2,
+	ggpubr,
+	cowplot,
+	Seurat,
+	knitr,
+	WGCNA,
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
