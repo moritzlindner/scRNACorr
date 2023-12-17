@@ -14,9 +14,9 @@
 #' @export
 
 corr.transcripts<-function(object,target,ident.use=NULL,thresh=0,method="pearson",nbootstrap=30,nThreads=10, slot = "data"){
-  stopifnot(target %in% rownames(object), "Target gene not found in Seurat object.")
-  stopifnot(is.null(ident.use) || all(ident.use %in% levels(object$ident)), "Invalid cluster(s) specified.")
-  message(paste("Clusters found: ", ident.use[ident.use %in% levels(scrnaseq)]))
+  stopifnot(target %in% rownames(object))
+  stopifnot(is.null(ident.use) || all(ident.use %in% levels(object)))
+  message(paste("Clusters found: ", ident.use[ident.use %in% levels(object)]))
 
   message(paste("Dimensions of imported matrix:", dim(object)[1],"x",dim(object)[2]))
   if (!is.null(ident.use)){
