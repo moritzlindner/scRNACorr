@@ -10,6 +10,7 @@
 #' @param font.size Font size for axis labels and text annotations.
 #' @return A ggplot2 object containing the correlation coefficient histogram and, if specified, a box and whisker plot for the GOI.
 #' @import ggplot2
+#' @importFrom ggplot2 ggplot aes geom_vline geom_hline geom_histogram geom_boxplot geom_text theme element_text element_blank xlim ylab
 #' @importFrom cowplot plot_grid
 #' @seealso
 #' \code{\link{corr.transcripts}}
@@ -49,15 +50,15 @@ cor.plot <-
 
     top <- max(table(cut(corrtbl$median, bins)), na.rm = T)
 
-    hist <- ggplot2::ggplot(corrtbl, ggplot2::aes(x = median)) +
-      ggplot2::geom_vline(
+    hist <- ggplot(corrtbl, aes(x = median)) +
+      geom_vline(
         data = quantile.borders,
         inherit.aes = F,
         aes(xintercept = x),
         linetype = 2,
         colour = "grey"
       ) +
-      ggplot2::geom_histogram(
+      geom_histogram(
         position = "dodge",
         aes(y = ..count..),
         alpha = alpha,
@@ -71,10 +72,10 @@ cor.plot <-
         angle = 90,
         text = element_text(size = font.size)
       ) +
-      scRNACorr:::theme_scRNACorr(font.size = font.size) +
-      ggplot2::theme(legend.position = "none") +
-      ggplot2::xlim(c(low, up)) +
-      ggplot2::ylab("Count")
+      theme_scRNACorr(font.size = font.size) +
+      theme(legend.position = "none") +
+      xlim(c(low, up)) +
+      ylab("Count")
 
 
     if (!is.null(GOI)) {
@@ -86,9 +87,9 @@ cor.plot <-
           axis.ticks.x = element_blank()
         )
 
-      bp <- ggplot2::ggplot(
+      bp <- ggplot(
         corrtbl[rownames(corrtbl) %in% GOI, ],
-        ggplot2::aes(
+        aes(
           x = gn,
           middle = median,
           ymin = min,
@@ -97,16 +98,16 @@ cor.plot <-
           upper = p75
         )
       ) +
-        ggplot2::geom_hline(
+        geom_hline(
           data = quantile.borders,
           inherit.aes = F,
           aes(yintercept = x),
           linetype = 2,
           colour = "grey"
         ) +
-        ggplot2::geom_boxplot(stat = "identity") +
-        ggplot2::ylab("Correlation coefficient") +
-        ggplot2::theme(legend.position = "none") +
+        geom_boxplot(stat = "identity") +
+        ylab("Correlation coefficient") +
+        theme(legend.position = "none") +
         theme_scRNACorr(font.size = font.size) +
         ylim(low, up) +
         coord_flip() +
