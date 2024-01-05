@@ -9,7 +9,7 @@ Depends: R (>= 3.5.2),
 	ggplot2,
 	ggpubr,
 	cowplot,
-	Seurat (>= 5.0.1),
+	SeuratData (>= 5.0.1),
 	knitr,
 	WGCNA,
 License: GPL-3
