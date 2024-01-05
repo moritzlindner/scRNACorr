@@ -9,7 +9,7 @@
 #' @param nbootstrap Number of bootstrap iterations to perform (default is 30)
 #' @param nThreads Number of threads to perform computation on (default is 10)
 #' @param slot Slot to pull data from (default is "data")
-#' @importFrom SeuratData subset LayerData
+#' @importFrom SeuratObject subset LayerData
 #' @return Data frame containing bootstrapped correlation coefficients
 #' @export
 
