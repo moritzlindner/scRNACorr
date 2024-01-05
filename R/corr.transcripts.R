@@ -24,7 +24,7 @@ corr.transcripts<-function(object,target,ident.use=NULL,thresh=0,method="pearson
     object<-subset(object,ident.use=ident.use)
     message(paste("Dimensions of imported matrix after filtering for identitiy classes:", dim(object)[1],"x",dim(object)[2]))
   }
-  mtx<-as.matrix(LayerData(object, slot = slot))
+  mtx<-as.matrix(LayerData(object, layer = slot))
   valid_methods <- c("pearson", "spearman", "kendall")  # Add other valid methods
   method <- match.arg(method, valid_methods)
 
