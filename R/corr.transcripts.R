@@ -9,12 +9,13 @@
 #' @param nbootstrap Number of bootstrap iterations to perform (default is 30)
 #' @param nThreads Number of threads to perform computation on (default is 10)
 #' @param slot Slot to pull data from (default is "data")
+#' @param silent Should progress bar be suppressed?
 #' @import SeuratObject
 #' @import Seurat
 #' @return Data frame containing bootstrapped correlation coefficients
 #' @export
 
-corr.transcripts<-function(object,target,ident.use=NULL,thresh=0,method="pearson",nbootstrap=30,nThreads=10, slot = "data"){
+corr.transcripts<-function(object,target,ident.use=NULL,thresh=0,method="pearson",nbootstrap=30,nThreads=10, slot = "data", silent =  false){
   stopifnot(target %in% rownames(object))
   stopifnot(is.null(ident.use) || all(ident.use %in% levels(object)))
   message(paste("Clusters found: ", ident.use[ident.use %in% levels(object)]))
@@ -30,6 +31,6 @@ corr.transcripts<-function(object,target,ident.use=NULL,thresh=0,method="pearson
 
   out<-NULL
   message("Bootstrapping correlation coefficients")
-  out<-cor.bootstrap(mtx,target=target,nbootstrap=nbootstrap,method=method,nThreads=nThreads)
+  out<-cor.bootstrap(mtx,target=target,nbootstrap=nbootstrap,method=method,nThreads=nThreads, silent = silent)
   return(out)
 }
