@@ -10,23 +10,29 @@
 #' @return data.frame containing Tukey Box and Wishker Plot statistics (columns) for all transcripts (rows) in the matrix
 #' @export
 
-cor.bootstrap<-function(mtx,target,nbootstrap=nbootstrap,method="pearson",nThreads=10) {
+cor.bootstrap<-function(mtx,target,nbootstrap=nbootstrap,method="pearson",nThreads=10, silent = F) {
   mtx<-t(mtx)
   corr<- matrix(NA, nrow = ncol(mtx), ncol = nbootstrap)
   rownames(corr)<-colnames(mtx)
   normdist<-corr
 
-  pb <- txtProgressBar(min = 1, max = nbootstrap, style = 3)
+  if (!silent){
+    pb <- txtProgressBar(min = 1, max = nbootstrap, style = 3)
+  }
   for (i in 1:nbootstrap){
     curr<-mtx[sample(1:nrow(mtx),replace = T),]
     corr[,i]<-cor(curr,curr[,colnames(curr)==target], method=method,nThreads = nThreads)
     normdist[,i]<-pnorm(scale(corr[,i]))
-    setTxtProgressBar(pb, i)
+    if (!silent){
+      setTxtProgressBar(pb, i)
+    }
     gc(full=T)
   }
   close(pb)
   rm(curr)
-  rm(pb)
+    if (!silent){
+    rm(pb)
+  }  
   corr<-t(apply(corr, 1, function(x){boxplot.stats(x,do.conf=FALSE,do.out = FALSE)$stats}))
   colnames(corr)<-c("min","p25","median","p75","max")
 
