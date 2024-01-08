@@ -27,10 +27,10 @@ cor.bootstrap<-function(mtx,target,nbootstrap=nbootstrap,method="pearson",nThrea
       setTxtProgressBar(pb, i)
     }
     gc(full=T)
-  }
-  close(pb)
+  }  
   rm(curr)
     if (!silent){
+    close(pb)
     rm(pb)
   }  
   corr<-t(apply(corr, 1, function(x){boxplot.stats(x,do.conf=FALSE,do.out = FALSE)$stats}))
